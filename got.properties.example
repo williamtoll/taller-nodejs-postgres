@@ -1,0 +1,5 @@
+db.got.database=got
+db.got.host=127.0.0.1
+db.got.port=5432
+db.got.username=postgres
+db.got.password=postgres

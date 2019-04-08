@@ -39,6 +39,7 @@ const axios = require('axios');
 
 const baseUrlGotApi="https://api.got.show/api";
 
+//Ejemplo de como obtener un registro de la base de datos de Postgres
 router.get('/lista', cors(), async (req, res, next) => {
     let rowsPersonajes = await poolGot.query(SQL_PERSONAJES);
     console.log("personajes", rowsPersonajes[0]);
@@ -48,6 +49,8 @@ router.get('/lista', cors(), async (req, res, next) => {
 });
 
 
+//Ejemplo de como obtener un objeto y su detalle, 
+// Realizamos una consulta a la base de datos para obtener el "personaje" a partir de esto rellenamos su atributo "familia" realizando otra consulta a la base de datos
 router.get('/det', cors(), async (req, res, next) => {
     let personaje=[];
     let rowsPersonajes = await poolGot.query(SQL_PERSONAJES);
@@ -66,6 +69,7 @@ router.get('/det', cors(), async (req, res, next) => {
 });
 
 
+//Ejemplo de como recibir parametros en la petición GET, en este caso recibido el parametro id
 router.get('/:id', cors(), async (req, res, next) => {
 
     let rowsPersonajes = await db.obtenerPersonajePorID(req.params.id);
@@ -75,7 +79,7 @@ router.get('/:id', cors(), async (req, res, next) => {
 
 });
 
-
+//Ejemplo de como recibir parametros en la petición POST y cómo insertarlo en la base de datos
 router.post('/insertar',cors(),async(req,res,next)=>{
     var result={};
     console.log("params", req.body);
@@ -94,6 +98,8 @@ router.post('/insertar',cors(),async(req,res,next)=>{
 
 });
 
+//Ejemplo de cómo documentar la api con Express Swagger
+
 /**
  * Obtiene el personaje del api externo apigot a partir del nombre del personaje
  * @route GET /apigot/characters
@@ -102,6 +108,8 @@ router.post('/insertar',cors(),async(req,res,next)=>{
  * @returns {object} 200 - Devuelve el objeto personaje
  * @returns {Error}  default - Error al obtener los datos
  */
+
+ //Ejemplo de cómo recibir párametros de tipo GET en la url, en este caso recibimos un parametro de tipo Query Param llamado name
 router.get('/apigot/characters',cors(),async(req,res,next)=>{
 
     axios.get(baseUrlGotApi+'/characters/'+req.query.name)
@@ -126,7 +134,8 @@ router.get('/apigot/characters',cors(),async(req,res,next)=>{
 
 
 
-
+//Ejemplo para obtener datos a partir haciendo llamada a otro api, para esto utilizamos la libreria Axios
+//https://github.com/axios/axios
 const secret  = { secret: process.env.SECRET || 'ejemplo' }
 /**
  * Obtiene todas las casas
@@ -145,7 +154,7 @@ router.get('/apigot/houses',jwt(secret),async(req,res,next)=>{
       if(req.user.admin){
         res.send(response.data);
       }
-      
+
       //respuesta para el usuario que no es admin
       res.status(401).send({ message: 'not authorized' })
 
