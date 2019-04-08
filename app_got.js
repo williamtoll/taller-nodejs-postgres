@@ -4,7 +4,7 @@
 // get all the tools we need
 var express  = require('express');
 var app      = express();
-var port     = process.env.PORT || 3001;
+var port     = process.env.PORT || 3005;
 
 var morgan       = require('morgan');
 var cookieParser = require('cookie-parser');
@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 var cors = require('cors')
 
-var whitelist = ['http://localhost:8100','http://localhost:8080']
+var whitelist = ['*']
 var corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1 || !origin ) {

@@ -1,0 +1,198 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 10.5
+-- Dumped by pg_dump version 10.5
+
+-- Started on 2019-04-08 13:14:37 -04
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- TOC entry 199 (class 1259 OID 6964270)
+-- Name: familia; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.familia (
+    id integer NOT NULL,
+    nombre character varying
+);
+
+
+ALTER TABLE public.familia OWNER TO postgres;
+
+--
+-- TOC entry 198 (class 1259 OID 6964268)
+-- Name: familia_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.familia_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.familia_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3131 (class 0 OID 0)
+-- Dependencies: 198
+-- Name: familia_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.familia_id_seq OWNED BY public.familia.id;
+
+
+--
+-- TOC entry 196 (class 1259 OID 6964256)
+-- Name: personaje; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.personaje (
+    id integer NOT NULL,
+    nombre character varying,
+    id_familia integer
+);
+
+
+ALTER TABLE public.personaje OWNER TO postgres;
+
+--
+-- TOC entry 197 (class 1259 OID 6964259)
+-- Name: personajes_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.personajes_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.personajes_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3132 (class 0 OID 0)
+-- Dependencies: 197
+-- Name: personajes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.personajes_id_seq OWNED BY public.personaje.id;
+
+
+--
+-- TOC entry 2996 (class 2604 OID 6964273)
+-- Name: familia id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.familia ALTER COLUMN id SET DEFAULT nextval('public.familia_id_seq'::regclass);
+
+
+--
+-- TOC entry 2995 (class 2604 OID 6964261)
+-- Name: personaje id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.personaje ALTER COLUMN id SET DEFAULT nextval('public.personajes_id_seq'::regclass);
+
+
+--
+-- TOC entry 3124 (class 0 OID 6964270)
+-- Dependencies: 199
+-- Data for Name: familia; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.familia (id, nombre) FROM stdin;
+1	TARGARYEN
+2	STARK
+3	Lannister
+4	Lannister
+5	Lannister
+6	Lannister
+7	1
+8	\N
+9	Martel
+10	Martel
+\.
+
+
+--
+-- TOC entry 3121 (class 0 OID 6964256)
+-- Dependencies: 196
+-- Data for Name: personaje; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.personaje (id, nombre, id_familia) FROM stdin;
+1	DAENERYS	1
+2	JOHN SNOW	2
+2	Cercei	3
+3	Cercei	4
+4	Cercei	5
+5	Cercei	6
+6	Cercei	7
+7	Cercei	8
+8	Oleg	9
+9	Oleg	10
+\.
+
+
+--
+-- TOC entry 3133 (class 0 OID 0)
+-- Dependencies: 198
+-- Name: familia_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.familia_id_seq', 10, true);
+
+
+--
+-- TOC entry 3134 (class 0 OID 0)
+-- Dependencies: 197
+-- Name: personajes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.personajes_id_seq', 9, true);
+
+
+--
+-- TOC entry 2998 (class 2606 OID 6964278)
+-- Name: familia familia_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.familia
+    ADD CONSTRAINT familia_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2999 (class 2606 OID 6964287)
+-- Name: personaje personajes_familia_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.personaje
+    ADD CONSTRAINT personajes_familia_fk FOREIGN KEY (id_familia) REFERENCES public.familia(id);
+
+
+-- Completed on 2019-04-08 13:14:38 -04
+
+--
+-- PostgreSQL database dump complete
+--
+
