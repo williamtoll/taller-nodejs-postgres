@@ -1,20 +1,20 @@
 var express = require('express');
 var cors = require('cors');
 var router = express.Router();
+const axios = require('axios');
 
 const jwt = require('express-jwt')
 
 var PropertiesReader = require('properties-reader');
+
+//Configurar aquí la ubicación del archivo properties donde se encuentra la configuración de conexión a la base de datos
 var properties = PropertiesReader('/opt/got.properties');
 
 const db = require('../../db');
 
 var _ = require('lodash');
 //conexion a la base de datos Postgres
-const {
-    Pool,
-    Client
-} = require('pg');
+const {Pool,Client} = require('pg');
 
 const Router = require('express-promise-router')
 
@@ -35,7 +35,6 @@ const SQL_FAMILIAS = 'select * from familia';
 
 
 
-const axios = require('axios');
 
 const baseUrlGotApi="https://api.got.show/api";
 
@@ -134,7 +133,8 @@ router.get('/apigot/characters',cors(),async(req,res,next)=>{
 
 
 
-//Ejemplo para obtener datos a partir haciendo llamada a otro api, para esto utilizamos la libreria Axios
+//Ejemplo de cómo proteger nuestro recurso utilizando Tokens JWT
+//para generar el token de prueba ir a http://jwt.io
 //https://github.com/axios/axios
 const secret  = { secret: process.env.SECRET || 'ejemplo' }
 /**
@@ -151,6 +151,7 @@ router.get('/apigot/houses',jwt(secret),async(req,res,next)=>{
       // handle success
       console.log(response);
 
+      //si el usuario tiene el atributo admin:true entonces devolvemos los datos
       if(req.user.admin){
         res.send(response.data);
       }

@@ -1,7 +1,5 @@
-// server.js
+// Importamos las librerias necesarias para correr nuestro frontend
 
-// set up ======================================================================
-// get all the tools we need
 var express  = require('express');
 var app      = express();
 var port     = process.env.PORT || 3005;
@@ -9,11 +7,11 @@ var port     = process.env.PORT || 3005;
 var morgan       = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
-var session      = require('express-session');
+
+const expressSwagger = require('express-swagger-generator')(app);
 
 var personajeRoutes = require('./routes/personaje');
 
-// set up our express application
 app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser.json()); // get information from html forms
@@ -39,8 +37,7 @@ app.options('*', cors())
 app.use(cors())
 
 
-const expressSwagger = require('express-swagger-generator')(app);
-
+// Configuramos nuestro api para que genere la documentación de las apis en formato Swagger
 let optionsExpressSwagger = {
     swaggerDefinition: {
         info: {
@@ -76,6 +73,6 @@ app.use('/personaje', personajeRoutes);
 // launch ======================================================================
 
 app.listen(port);
-console.log('The magic happens on port ' + port);
+console.log('Servidor iniciado, go to http://localhost:' + port);
 
 
