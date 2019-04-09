@@ -36,7 +36,7 @@ const SQL_FAMILIAS = 'select * from familia';
 
 
 
-const baseUrlGotApi="https://api.got.show/api";
+const baseUrlGotApi="https://gotdata.northeurope.cloudapp.azure.com/api/show";
 
 //Ejemplo de como obtener un registro de la base de datos de Postgres
 router.get('/lista', cors(), async (req, res, next) => {
