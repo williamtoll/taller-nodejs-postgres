@@ -1,4 +1,5 @@
-Ejemplos utilizados en el Taller de NodeJs 
+Ejemplos utilizados en el Taller de NodeJs.
+
 Se muestran de ejemplos de como acceder a los datos utilizando Node-Postgres, se muestra un ejemplo de una transaccion, cómo obtener datos mediante una llamada a otro api utilizando Axios
 
 ## Base de datos
